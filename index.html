@@ -227,6 +227,20 @@
     padding: 24px;
     transition: box-shadow .25s, transform .25s;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 30%, rgba(185,28,28,.15) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform .6s ease;
+    pointer-events: none;
+  }
+  .project-card:hover::before {
+    transform: translateX(100%);
   }
   .project-card:hover {
     box-shadow: var(--shadow-lg);
@@ -241,6 +255,11 @@
     font-size: .75rem;
     padding: 2px 10px;
     border-radius: 20px;
+    transition: background .3s, color .3s;
+  }
+  .project-card:hover .tags span {
+    background: #fef2f2;
+    color: #b91c1c;
   }
 
   /* ── Contact ── */
@@ -322,7 +341,7 @@
   <section id="perfil">
     <div class="container">
       <h2 class="section-title">Perfil Profesional</h2>
-      <p>Desarrollador API con 3 años de experiencia en proyecto de Santander Consumer Finance. Bootcamp de programación web full-stack por Upgrade Hub. Técnico Superior en Administración de Sistemas Informáticos y Redes. Más de 18 años de experiencia laboral en diferentes sectores determinan una gran capacidad de aprendizaje y adaptación. Liderazgo, trabajo en equipo y ganas, muchas ganas.</p>
+      <p>Desarrollador API con 3 años de experiencia en proyecto de Santander Consumer Finance. Bootcamp de programación web full-stack por Upgrade Hub. Bootcamp de Data Analytics &amp; IA por Upgrade Hub. Técnico Superior en Administración de Sistemas Informáticos en Red. Más de 18 años de experiencia laboral en diferentes sectores determinan una gran capacidad de aprendizaje y adaptación. Liderazgo, trabajo en equipo y ganas, muchas ganas.</p>
     </div>
   </section>
 
@@ -334,7 +353,7 @@
         <div class="timeline-item">
           <h3>Desarrollador API</h3>
           <div class="meta">
-            <span>UST · Madrid</span>
+            <span>UST · Madrid (remoto)</span>
             <span>Nov 2021 — Feb 2025</span>
           </div>
           <p>Desarrollo y definición de APIs proveedoras de seguridad y servicios con IBM API Connect. Integración y desarrollo del flujo con Node-RED. CI/CD del producto con Bitbucket y Jenkins. Desarrollo y mantenimiento de endpoints y servicios. Integración de servicios con bases de datos (MongoDB y Redis). Participación en el diseño y revisión de código junto con otros desarrolladores. Preparación de pruebas unitarias y de integración. Apoyo en despliegue y mantenimiento en entornos de desarrollo y producción. Gestión de tareas a través de Jira y metodología Agile.</p>
@@ -384,7 +403,7 @@
           <span class="tag">Soporte</span>
         </div>
         <div class="timeline-item">
-          <h3>Técnico informático</h3>
+          <h3>Técnico informático (prácticas)</h3>
           <div class="meta">
             <span>Mancomunidad de la Sierra de Cádiz · Villamartín, Cádiz</span>
             <span>Abr 2016 — Jun 2016</span>
@@ -392,26 +411,6 @@
           <p>Reparación de ordenadores. Instalación de sistemas operativos. Gestión de bases de datos. Asistencia remota.</p>
           <span class="tag">Soporte técnico</span>
           <span class="tag">Bases de datos</span>
-        </div>
-        <div class="timeline-item">
-          <h3>Militar Profesional</h3>
-          <div class="meta">
-            <span>Fuerzas Armadas · Ronda, Málaga</span>
-            <span>Dic 2010 — Dic 2012</span>
-          </div>
-          <p>Instrucción militar basada en la disciplina, la organización y el trabajo en equipo.</p>
-          <span class="tag">Disciplina</span>
-          <span class="tag">Trabajo en equipo</span>
-        </div>
-        <div class="timeline-item">
-          <h3>Camarero / Encargado de pub</h3>
-          <div class="meta">
-            <span>Magia&amp;Música Pub / La Taberna Marinera Pub · Sevilla</span>
-            <span>Jun 2008 — Dic 2010</span>
-          </div>
-          <p>Gestión de pedidos, música, ambiente, limpieza y servicio en barra y mesas.</p>
-          <span class="tag">Gestión</span>
-          <span class="tag">Servicio</span>
         </div>
       </div>
     </div>
@@ -423,12 +422,37 @@
       <h2 class="section-title">Educación</h2>
       <div class="timeline">
         <div class="timeline-item">
-          <h3>Bootcamp Full-Stack Web Developer</h3>
-          <div class="meta"><span>Upgrade Hub</span><span>Jun 2021 — Sep 2021</span></div>
+          <h3>Bootcamp Data Analytics &amp; IA</h3>
+          <div class="meta"><span>Upgrade Hub</span><span>May 2026 — Oct 2026</span></div>
+          <span class="tag">Python</span>
+          <span class="tag">pandas</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Machine Learning</span>
+          <span class="tag">LLM</span>
         </div>
         <div class="timeline-item">
-          <h3>Técnico Superior en Administración de Sistemas Informáticos y Redes</h3>
+          <h3>Bootcamp Full-Stack Web Developer</h3>
+          <div class="meta"><span>Upgrade Hub</span><span>Jun 2021 — Sep 2021</span></div>
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">React</span>
+          <span class="tag">PHP</span>
+          <span class="tag">APIs</span>
+        </div>
+        <div class="timeline-item">
+          <h3>Técnico Superior en Administración de Sistemas Informáticos en Red</h3>
           <div class="meta"><span>I.E.S. Guadalpeña</span><span>Sep 2012 — Jun 2016</span></div>
+          <span class="tag">Redes</span>
+          <span class="tag">Sistemas Operativos</span>
+          <span class="tag">Bases de datos</span>
+          <span class="tag">Hardware</span>
+          <span class="tag">.NET</span>
+          <span class="tag">Seguridad</span>
+          <span class="tag">Linux</span>
         </div>
       </div>
     </div>
@@ -440,11 +464,15 @@
       <h2 class="section-title">Habilidades</h2>
       <div class="skills-grid">
         <div class="skill-item">
-          <div class="label"><span>IBM API Connect</span><span class="pct">85 %</span></div>
+          <div class="label"><span>Python</span><span class="pct">85 %</span></div>
           <div class="skill-bar"><div class="fill" data-pct="85"></div></div>
         </div>
         <div class="skill-item">
-          <div class="label"><span>Node-RED</span><span class="pct">80 %</span></div>
+          <div class="label"><span>Streamlit</span><span class="pct">85 %</span></div>
+          <div class="skill-bar"><div class="fill" data-pct="85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="label"><span>pandas</span><span class="pct">80 %</span></div>
           <div class="skill-bar"><div class="fill" data-pct="80"></div></div>
         </div>
         <div class="skill-item">
@@ -452,24 +480,20 @@
           <div class="skill-bar"><div class="fill" data-pct="80"></div></div>
         </div>
         <div class="skill-item">
-          <div class="label"><span>Jenkins</span><span class="pct">75 %</span></div>
+          <div class="label"><span>SQL</span><span class="pct">75 %</span></div>
           <div class="skill-bar"><div class="fill" data-pct="75"></div></div>
         </div>
         <div class="skill-item">
-          <div class="label"><span>MongoDB</span><span class="pct">75 %</span></div>
-          <div class="skill-bar"><div class="fill" data-pct="75"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="label"><span>Redis</span><span class="pct">70 %</span></div>
-          <div class="skill-bar"><div class="fill" data-pct="70"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="label"><span>CI/CD</span><span class="pct">75 %</span></div>
-          <div class="skill-bar"><div class="fill" data-pct="75"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="label"><span>Jira / Agile</span><span class="pct">80 %</span></div>
+          <div class="label"><span>APIs (REST / API Connect)</span><span class="pct">80 %</span></div>
           <div class="skill-bar"><div class="fill" data-pct="80"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="label"><span>Plotly</span><span class="pct">75 %</span></div>
+          <div class="skill-bar"><div class="fill" data-pct="75"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="label"><span>CI/CD (Jenkins)</span><span class="pct">75 %</span></div>
+          <div class="skill-bar"><div class="fill" data-pct="75"></div></div>
         </div>
       </div>
     </div>
@@ -481,19 +505,29 @@
       <h2 class="section-title">Proyectos</h2>
       <div class="projects-grid">
         <div class="project-card" tabindex="0">
-          <h3>API de Autenticación Segura</h3>
-          <p>API REST con IBM API Connect para proveer servicios de autenticación y autorización OAuth2. Integración con MongoDB y Redis para sesiones.</p>
-          <div class="tags"><span>IBM API Connect</span><span>Node-RED</span><span>MongoDB</span></div>
+          <h3>Credit Card Churn Analysis</h3>
+          <p>EDA interactivo con Streamlit para identificar el perfil de cliente bancario que cancela su tarjeta de crédito. Dashboard con filtros dinámicos, gráficos Plotly y segmentación por actividad.</p>
+          <div class="tags"><span>Python</span><span>Streamlit</span><span>pandas</span><span>Plotly</span></div>
         </div>
         <div class="project-card" tabindex="0">
-          <h3>Pipeline CI/CD Automatizado</h3>
-          <p>Pipeline de integración y despliegue continuo con Bitbucket + Jenkins. Pruebas unitarias, análisis de código y despliegue automático en entornos de desarrollo y producción.</p>
-          <div class="tags"><span>Jenkins</span><span>Bitbucket</span><span>CI/CD</span></div>
+          <h3>RickyMortex</h3>
+          <p>App web para explorar personajes de Rick y Morty vía API REST pública. Cuadrícula de tarjetas, fichas detalladas, filtros y estadísticas con Plotly.</p>
+          <div class="tags"><span>Streamlit</span><span>Python</span><span>APIs</span><span>Plotly</span></div>
         </div>
         <div class="project-card" tabindex="0">
-          <h3>Portal de Servicios API</h3>
-          <p>Definición e implementación de un portal de servicios API con IBM API Connect, facilitando el consumo de endpoints por parte de equipos internos y externos.</p>
-          <div class="tags"><span>IBM API Connect</span><span>Node-RED</span><span>Jira</span></div>
+          <h3>Streamlit Pokédex</h3>
+          <p>Pokédex interactiva que lee datos desde TiDB Cloud en lugar de ficheros locales. Preparación de datos con pandas y visualización con Plotly.</p>
+          <div class="tags"><span>Streamlit</span><span>Python</span><span>SQL</span><span>pandas</span></div>
+        </div>
+        <div class="project-card" tabindex="0">
+          <h3>Diputados Congreso</h3>
+          <p>Scripts en Python para descargar, procesar y analizar datos patrimoniales de diputados del Congreso de los Diputados de España.</p>
+          <div class="tags"><span>Python</span><span>Data scraping</span><span>APIs</span></div>
+        </div>
+        <div class="project-card" tabindex="0">
+          <h3>Earthquakes</h3>
+          <p>Notebook de Python que consume la API de USGS para analizar y visualizar datos históricos de terremotos en todo el mundo.</p>
+          <div class="tags"><span>Python</span><span>APIs</span><span>pandas</span><span>Jupyter</span></div>
         </div>
       </div>
     </div>
@@ -512,7 +546,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
           /in/guillermo-rodriguez-godoy
         </a>
-        <a href="https://github.com/guillermorg" target="_blank" rel="noopener" class="contact-card" aria-label="GitHub">
+        <a href="https://github.com/Dende8" target="_blank" rel="noopener" class="contact-card" aria-label="GitHub">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           /guillermorg
         </a>
