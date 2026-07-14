@@ -1,18 +1,21 @@
 # Reglas de este proyecto
 
 ## Que es
-Mi CV/portfolio personal, publicado con Github Pages en https://github.com/ulzuhan/clase-cv-opencode. Su publico son recruiters y empresas: profesional y sobrio, no un juguete.
+Mi CV/portfolio personal, publicado con GitHub Pages en https://github.com/Dende8/Dende8.github.io. Audiencia: recruiters y empresas. Profesional y sobrio.
 
-## Restricciones tecnicas (no negociables)
-- TODO vive en un unico fichero index.html: HTML + CSS + JS inline.
-- Sin frameworks, sin build, sin npm, sin ficheros externos (salvo imagenes del repo).
-- Debe funcionar abriundelo con doble clic y desplegado desde Github Pages tal cual.
-- Responsive (movil, tablet, escritorio) y accesible (contraste suficiente, aria, lang="es").
+## Restricciones técnicas (no negociables)
+- TODO vive en `index.html`: HTML + CSS + JS inline, sin frameworks, npm, build ni ficheros externos (salvo imágenes del repo).
+- Debe funcionar abriéndolo con doble clic y desplegado desde GitHub Pages tal cual.
+- Responsive (móvil, tablet, escritorio) y accesible (contraste suficiente, aria, `lang="es"`).
 
 ## Estilo
-- Todo el texto visible en castellano; nombres de clases y codigo en ingles.
-- Manten la paleta y tipografia existentes salvo que pida cambiarlas explicitamente.
-- Nada de liberias de animacion ni efectos aparatosos.
+- Texto visible en castellano; nombres de clases y código en inglés.
+- Mantén la paleta y tipografía existentes salvo que pida cambiarlas explícitamente.
+- Nada de librerías de animación ni efectos aparatosos.
+
+## Datos personales
+- No inventes datos: usa los que ya hay en la página.
+- NUNCA incluyas teléfono, dirección postal ni DNI.
 
 ## Al terminar cada cambio
-- Resume en 2-3 lineas que has tocado y donde.
+- Resume en 2-3 líneas qué has tocado y dónde.
