@@ -374,12 +374,247 @@
     text-align: center;
     margin-top: 8px;
   }
-  @media print {
-    nav { display: none !important; }
-    #proyectos { display: none !important; }
-    .print-only-projects-note { display: block !important; }
-    .timeline-item, .skill-card { break-inside: avoid; }
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0.2cm 0.35cm 0.3cm 0.35cm;
   }
+
+  html, body {
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-size: 7.9pt;
+    line-height: 1.2;
+    color: #000;
+    overflow: visible !important;
+  }
+
+  .container {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-left: 0.28cm !important;
+    padding-right: 0.28cm !important;
+  }
+
+  nav,
+  .lang-switch,
+  #proyectos,
+  .project-card,
+  .project-card-link {
+    display: none !important;
+  }
+
+  header {
+    padding: 5.5pt 0 4.5pt !important;
+    margin-bottom: 5pt !important;
+  }
+
+  header .container {
+    gap: 10pt !important;
+    align-items: center !important;
+  }
+
+  header h1 {
+    font-size: 11.8pt !important;
+    margin-bottom: 0 !important;
+    line-height: 1.04 !important;
+  }
+
+  header p {
+    font-size: 7.5pt !important;
+    line-height: 1.06 !important;
+    margin: 0 !important;
+  }
+
+  .avatar {
+    width: 35pt !important;
+    height: 35pt !important;
+    border-width: 1px !important;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  section {
+    padding: 3.6pt 0 !important;
+    margin-bottom: 3.8pt !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  section:nth-child(even) {
+    background: none !important;
+  }
+
+  .section-title {
+    font-size: 9.2pt !important;
+    margin-bottom: 3pt !important;
+  }
+
+  .section-title::after {
+    display: none !important;
+  }
+
+  #perfil {
+    margin-top: 3pt !important;
+  }
+
+  #perfil p,
+  .timeline-item p {
+    text-align: justify !important;
+  }
+
+  #perfil p {
+    font-size: 6.75pt !important;
+    line-height: 1.12 !important;
+  }
+
+  .skills-grid {
+    gap: 3.5pt !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .skill-card {
+    padding: 3.5pt !important;
+    border: none !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .skill-card h3 {
+    font-size: 8pt !important;
+    margin-bottom: 2.5pt !important;
+  }
+
+  .skill-chips {
+    gap: 2.5pt !important;
+  }
+
+  .chip {
+    font-size: 6.2pt !important;
+    padding: 1pt 4.5pt !important;
+    border-width: 1px !important;
+  }
+
+  .skills-subtitle {
+    margin: 3.5pt 0 2.5pt !important;
+    padding-top: 3pt !important;
+    border-top: none !important;
+    font-size: 8.2pt !important;
+  }
+
+  .languages-list {
+    gap: 1.8pt !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  .languages-list li {
+    font-size: 7.1pt !important;
+    text-align: left !important;
+  }
+
+  .timeline {
+    padding-left: 11pt !important;
+  }
+
+  .timeline::before {
+    left: 2px !important;
+  }
+
+  .timeline-item {
+    margin-bottom: 4.5pt !important;
+    padding-left: 7pt !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .timeline-item::before {
+    width: 6.5pt !important;
+    height: 6.5pt !important;
+    left: -15pt !important;
+    top: 3pt !important;
+    border-width: 2px !important;
+  }
+
+  .timeline-item h3 {
+    font-size: 8.2pt !important;
+    margin-bottom: 1pt !important;
+  }
+
+  .timeline-item .meta {
+    font-size: 6.3pt !important;
+    margin: 0 0 2pt !important;
+    gap: 4pt !important;
+  }
+
+  .timeline-item p {
+    font-size: 7pt !important;
+    line-height: 1.13 !important;
+  }
+
+  .tag {
+    font-size: 6pt !important;
+    padding: 1pt 4pt !important;
+    margin-top: 1pt !important;
+  }
+
+  .print-only-projects-note {
+    display: block !important;
+    font-size: 7.8pt !important;
+    text-align: center !important;
+    margin: 6pt 0 7pt !important;
+    color: #991b1b !important;
+    font-weight: 700 !important;
+  }
+
+  .print-only-projects-note a {
+    color: #991b1b !important;
+  }
+
+  .contact-grid {
+    gap: 4pt !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .contact-card {
+    padding: 4pt 7pt !important;
+    font-size: 7.1pt !important;
+    min-width: auto !important;
+    border: none !important;
+  }
+
+  .contact-card svg {
+    width: 10pt !important;
+    height: 10pt !important;
+  }
+
+  footer {
+    padding: 3.5pt 0 !important;
+    font-size: 6pt !important;
+    border-top: none !important;
+  }
+
+  .skill-card,
+  .timeline-item,
+  .contact-card {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
 
   /* ── Responsive ── */
   @media (max-width: 768px) {
@@ -406,7 +641,7 @@
     <img src="IMG_20260128_141948.png" alt="Guillermo Rodríguez Godoy" class="avatar">
     <div class="header-text">
       <h1>Guillermo Rodríguez Godoy</h1>
-      <p>Data Analyst & IA · API Developer · Full Stack Web Developer</p>
+      <p>IA & Data Analyst · API Developer · Full Stack Web Developer</p>
     </div>
   </div>
 </header>
