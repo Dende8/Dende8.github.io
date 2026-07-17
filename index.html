@@ -94,6 +94,10 @@
     top: 0;
     z-index: 100;
     box-shadow: var(--shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
   }
   nav ul {
     list-style: none;
@@ -117,6 +121,19 @@
   }
   nav a:hover, nav a:focus { color: var(--primary); border-color: var(--primary); }
   nav a:focus { outline: 2px solid var(--primary-light); outline-offset: -2px; }
+  .lang-switch { display: flex; gap: 4px; margin-left: 8px; }
+  .lang-btn {
+    background: none;
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    line-height: 1;
+  }
+  .lang-btn:hover { border-color: var(--primary); background: var(--primary-bg); }
+  .lang-btn.active { border-color: var(--primary); background: var(--primary-bg); }
 
   /* ── Sections ── */
   section { padding: 56px 0; }
@@ -196,30 +213,28 @@
     margin-top: 6px;
   }
 
-  /* ── Skills ── */
-  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px; }
-  .skill-item .label {
-    display: flex;
-    justify-content: space-between;
+  /* ── Skills Cards ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .skill-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .skill-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 12px; color: var(--gray-900); }
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: .85rem;
     font-weight: 500;
-    font-size: .95rem;
-    margin-bottom: 6px;
   }
-  .skill-bar {
-    height: 8px;
-    background: var(--gray-200);
-    border-radius: 4px;
-    overflow: hidden;
+  .chip {
+    background: var(--primary-bg);
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
   }
-  .skill-bar .fill {
-    height: 100%;
-    border-radius: 4px;
-    width: 0;
-    transition: width 1s ease;
-  }
-  .skill-item.core .fill { background: var(--skill-core); }
-  .skill-item.growth .fill { background: var(--skill-growth); }
-
   .skills-subtitle {
     font-size: 1.15rem;
     font-weight: 600;
@@ -296,17 +311,16 @@
     padding: 6px 16px;
     font-size: .8rem;
     font-weight: 600;
-    color: var(--primary);
-    background: var(--primary-bg);
+    color: var(--white);
+    background: var(--primary);
     border-radius: 20px;
     text-decoration: none;
     opacity: 0;
-    transition: opacity .25s, background .25s, color .25s;
+    transition: opacity 0.3s ease;
   }
   .project-card:hover .visitar {
     opacity: 1;
-    background: var(--primary);
-    color: var(--white);
+    transition: opacity 0.3s ease 0.25s;
   }
   .project-card-link {
     text-decoration: none;
@@ -352,6 +366,21 @@
     border-top: 1px solid var(--gray-200);
   }
 
+  /* ── Print ── */
+  .print-only-projects-note {
+    display: none;
+    font-size: .85rem;
+    color: var(--gray-600);
+    text-align: center;
+    margin-top: 8px;
+  }
+  @media print {
+    nav { display: none !important; }
+    #proyectos { display: none !important; }
+    .print-only-projects-note { display: block !important; }
+    .timeline-item, .skill-card { break-inside: avoid; }
+  }
+
   /* ── Responsive ── */
   @media (max-width: 768px) {
     header { padding: 48px 0 40px; }
@@ -384,87 +413,91 @@
 
 <nav aria-label="Navegación principal">
   <ul>
-    <li><a href="#perfil">Perfil</a></li>
-    <li><a href="#habilidades">Habilidades</a></li>
-    <li><a href="#experiencia">Experiencia</a></li>
-    <li><a href="#educacion">Educación</a></li>
-    <li><a href="#proyectos">Proyectos</a></li>
-    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#perfil" data-es="Perfil" data-en="Profile" data-it="Profilo">Perfil</a></li>
+    <li><a href="#habilidades" data-es="Stack Tecnológico" data-en="Tech Stack" data-it="Stack Tecnologico">Stack Tecnológico</a></li>
+    <li><a href="#experiencia" data-es="Experiencia" data-en="Experience" data-it="Esperienza">Experiencia</a></li>
+    <li><a href="#educacion" data-es="Educación" data-en="Education" data-it="Formazione">Educación</a></li>
+    <li><a href="#proyectos" data-es="Proyectos" data-en="Projects" data-it="Progetti">Proyectos</a></li>
+    <li><a href="#contacto" data-es="Contacto" data-en="Contact" data-it="Contatti">Contacto</a></li>
   </ul>
+  <div class="lang-switch">
+    <button class="lang-btn active" data-lang="es" aria-label="Español">🇪🇸</button>
+    <button class="lang-btn" data-lang="en" aria-label="English">🇬🇧</button>
+    <button class="lang-btn" data-lang="it" aria-label="Italiano">🇮🇹</button>
+  </div>
 </nav>
 
 <main>
   <!-- Perfil -->
   <section id="perfil">
     <div class="container">
-      <h2 class="section-title">Perfil Profesional</h2>
-      <p>Desarrollador API y Data Analyst con más de 3 años de experiencia diseñando, integrando y manteniendo servicios REST en producción para Santander Consumer Finance (IBM API Connect, Node-RED, CI/CD con Jenkins). Actualmente ampliando mi perfil hacia el análisis de datos y la IA aplicada mediante un bootcamp de Data Analytics & IA (Python, SQL, Power BI, Microsoft Fabric, Machine Learning, LLM y RAG), combinando la solidez de un desarrollador backend con las herramientas analíticas que hoy demanda el mercado. Formación en Administración de Sistemas Informáticos en Red y Bootcamp Full-Stack (JavaScript, React, Node.js, PHP, MongoDB). Más de 18 años de experiencia laboral en sectores diversos han desarrollado en mí una capacidad de aprendizaje rápido, adaptación y trabajo en equipo, con vocación de liderazgo.</p>
+      <h2 class="section-title" data-es="Perfil Profesional" data-en="Professional Profile" data-it="Profilo Professionale">Perfil Profesional</h2>
+      <p data-es="Desarrollador API y Data Analyst con más de 3 años de experiencia diseñando, integrando y manteniendo servicios REST en producción para Santander Consumer Finance (IBM API Connect, Node-RED, CI/CD con Jenkins). Actualmente ampliando mi perfil hacia el análisis de datos y la IA aplicada mediante un bootcamp de Data Analytics & IA (Python, SQL, Power BI, Microsoft Fabric, Machine Learning, LLM y RAG), combinando la solidez de un desarrollador backend con las herramientas analíticas que hoy demanda el mercado. Formación en Administración de Sistemas Informáticos en Red y Bootcamp Full-Stack (JavaScript, React, Node.js, PHP, MongoDB). Más de 18 años de experiencia laboral en sectores diversos han desarrollado en mí una capacidad de aprendizaje rápido, adaptación y trabajo en equipo, con vocación de liderazgo." data-en="API Developer and Data Analyst with over 3 years of experience designing, integrating and maintaining REST services in production for Santander Consumer Finance (IBM API Connect, Node-RED, CI/CD with Jenkins). Currently expanding my profile towards data analysis and applied AI through a Data Analytics & AI bootcamp (Python, SQL, Power BI, Microsoft Fabric, Machine Learning, LLM and RAG), combining solid backend development skills with the analytical tools demanded by today's market. Training in Systems Administration and Networking and Full-Stack Bootcamp (JavaScript, React, Node.js, PHP, MongoDB). Over 18 years of work experience in diverse sectors have developed a strong ability for rapid learning, adaptability and teamwork, with a natural inclination for leadership." data-it="Sviluppatore API e Data Analyst con oltre 3 anni di esperienza nella progettazione, integrazione e manutenzione di servizi REST in produzione per Santander Consumer Finance (IBM API Connect, Node-RED, CI/CD con Jenkins). Attualmente in fase di ampliamento del proprio profilo verso l'analisi dei dati e l'IA applicata attraverso un bootcamp di Data Analytics & IA (Python, SQL, Power BI, Microsoft Fabric, Machine Learning, LLM e RAG), unendo solide basi di sviluppo backend agli strumenti analitici oggi richiesti dal mercato. Formazione in Amministrazione di Sistemi e Reti e bootcamp Full-Stack (JavaScript, React, Node.js, PHP, MongoDB). Oltre 18 anni di esperienza lavorativa in diversi settori hanno sviluppato una forte capacità di apprendimento rapido, adattabilità e lavoro di squadra, con naturale propensione alla leadership.">Desarrollador API y Data Analyst con más de 3 años de experiencia diseñando, integrando y manteniendo servicios REST en producción para Santander Consumer Finance (IBM API Connect, Node-RED, CI/CD con Jenkins). Actualmente ampliando mi perfil hacia el análisis de datos y la IA aplicada mediante un bootcamp de Data Analytics & IA (Python, SQL, Power BI, Microsoft Fabric, Machine Learning, LLM y RAG), combinando la solidez de un desarrollador backend con las herramientas analíticas que hoy demanda el mercado. Formación en Administración de Sistemas Informáticos en Red y Bootcamp Full-Stack (JavaScript, React, Node.js, PHP, MongoDB). Más de 18 años de experiencia laboral en sectores diversos han desarrollado en mí una capacidad de aprendizaje rápido, adaptación y trabajo en equipo, con vocación de liderazgo.</p>
     </div>
   </section>
 
   <!-- Habilidades -->
   <section id="habilidades">
     <div class="container">
-      <h2 class="section-title">Habilidades</h2>
+      <h2 class="section-title" data-es="Stack Tecnológico" data-en="Tech Stack" data-it="Stack Tecnologico">Stack Tecnológico</h2>
       <div class="skills-grid">
-        <div class="skill-item core">
-          <div class="label"><span>Python</span></div>
-          <div class="skill-bar"><div class="fill"></div></div>
+        <div class="skill-card">
+          <h3 data-es="APIs & Backend" data-en="APIs & Backend" data-it="API e Backend">APIs & Backend</h3>
+          <div class="skill-chips">
+            <span class="chip">APIs REST</span>
+            <span class="chip">IBM API Connect</span>
+            <span class="chip">Node-RED</span>
+            <span class="chip">Git</span>
+            <span class="chip">CI/CD</span>
+            <span class="chip">MongoDB</span>
+            <span class="chip">Redis</span>
+            <span class="chip">JSON</span>
+          </div>
         </div>
-        <div class="skill-item core">
-          <div class="label"><span>SQL</span></div>
-          <div class="skill-bar"><div class="fill"></div></div>
+        <div class="skill-card">
+          <h3 data-es="Full Stack Web" data-en="Full Stack Web" data-it="Full Stack Web">Full Stack Web</h3>
+          <div class="skill-chips">
+            <span class="chip">JavaScript</span>
+            <span class="chip">React</span>
+            <span class="chip">Angular</span>
+            <span class="chip">Node.js</span>
+            <span class="chip">PHP/Symfony</span>
+            <span class="chip">HTML5/CSS3</span>
+            <span class="chip">MySQL</span>
+            <span class="chip">Docker</span>
+          </div>
         </div>
-        <div class="skill-item core">
-          <div class="label"><span>APIs REST</span></div>
-          <div class="skill-bar"><div class="fill"></div></div>
+        <div class="skill-card">
+          <h3 data-es="Análisis de Datos" data-en="Data Analysis" data-it="Analisi dei Dati">Análisis de Datos</h3>
+          <div class="skill-chips">
+            <span class="chip">Python</span>
+            <span class="chip">SQL</span>
+            <span class="chip">pandas</span>
+            <span class="chip">Power BI</span>
+            <span class="chip">Plotly</span>
+            <span class="chip">Microsoft Fabric</span>
+            <span class="chip">KQL</span>
+            <span class="chip">Streamlit</span>
+            <span class="chip">Seaborn/Plotly</span>
+          </div>
         </div>
-        <div class="skill-item core">
-          <div class="label"><span>Git</span></div>
-          <div class="skill-bar"><div class="fill"></div></div>
-        </div>
-        <div class="skill-item core">
-          <div class="label"><span>CI/CD</span></div>
-          <div class="skill-bar"><div class="fill"></div></div>
-        </div>
-        <div class="skill-item core">
-          <div class="label"><span>MongoDB</span></div>
-          <div class="skill-bar"><div class="fill"></div></div>
-        </div>
-        <div class="skill-item core">
-          <div class="label"><span>JavaScript</span></div>
-          <div class="skill-bar"><div class="fill"></div></div>
-        </div>
-        <div class="skill-item growth">
-          <div class="label"><span>Power BI</span></div>
-          <div class="skill-bar"><div class="fill"></div></div>
-        </div>
-        <div class="skill-item growth">
-          <div class="label"><span>Microsoft Fabric</span></div>
-          <div class="skill-bar"><div class="fill"></div></div>
-        </div>
-        <div class="skill-item growth">
-          <div class="label"><span>pandas</span></div>
-          <div class="skill-bar"><div class="fill"></div></div>
-        </div>
-        <div class="skill-item growth">
-          <div class="label"><span>Streamlit</span></div>
-          <div class="skill-bar"><div class="fill"></div></div>
-        </div>
-        <div class="skill-item growth">
-          <div class="label"><span>Machine Learning</span></div>
-          <div class="skill-bar"><div class="fill"></div></div>
-        </div>
-        <div class="skill-item growth">
-          <div class="label"><span>LLM / RAG</span></div>
-          <div class="skill-bar"><div class="fill"></div></div>
+        <div class="skill-card">
+          <h3 data-es="Inteligencia Artificial" data-en="Artificial Intelligence" data-it="Intelligenza Artificiale">Inteligencia Artificial</h3>
+          <div class="skill-chips">
+            <span class="chip">Machine Learning</span>
+            <span class="chip">LLM</span>
+            <span class="chip">RAG</span>
+            <span class="chip">Ollama</span>
+            <span class="chip">OpenCode</span>
+            <span class="chip">Copilot</span>
+          </div>
         </div>
       </div>
 
-      <h3 class="skills-subtitle">Idiomas</h3>
+      <h3 class="skills-subtitle" data-es="Idiomas" data-en="Languages" data-it="Lingue">Idiomas</h3>
       <ul class="languages-list">
-        <li><strong>Español:</strong> Nativo</li>
-        <li><strong>Inglés:</strong> Nivel técnico (lectura de documentación, reuniones, código) — B1</li>
+        <li data-es="<strong>Español:</strong> Nativo" data-en="<strong>Spanish:</strong> Native" data-it="<strong>Spagnolo:</strong> Madrelingua"><strong>Español:</strong> Nativo</li>
+        <li data-es="<strong>Inglés:</strong> Nivel técnico (lectura de documentación, reuniones, código) — B1" data-en="<strong>English:</strong> Technical level (reading documentation, meetings, code) — B1" data-it="<strong>Inglese:</strong> Livello tecnico (lettura di documentazione, riunioni, codice) — B1"><strong>Inglés:</strong> Nivel técnico (lectura de documentación, reuniones, código) — B1</li>
       </ul>
     </div>
   </section>
@@ -472,15 +505,15 @@
   <!-- Experiencia -->
   <section id="experiencia">
     <div class="container">
-      <h2 class="section-title">Experiencia Laboral</h2>
+      <h2 class="section-title" data-es="Experiencia Laboral" data-en="Work Experience" data-it="Esperienza Lavorativa">Experiencia Laboral</h2>
       <div class="timeline">
         <div class="timeline-item">
-          <h3>Desarrollador API</h3>
+          <h3 data-es="Desarrollador API" data-en="API Developer" data-it="Sviluppatore API">Desarrollador API</h3>
           <div class="meta">
             <span>UST · Madrid (remoto)</span>
             <span>Nov 2021 — Feb 2025</span>
           </div>
-          <p>Desarrollo y definición de APIs REST proveedoras de seguridad y servicios para Santander Consumer Finance mediante IBM API Connect, cubriendo el ciclo de vida completo del API: diseño, publicación, versionado y retirada. Diseño e implementación de flujos de integración y automatización con Node-RED. Gestión de CI/CD con Bitbucket y Jenkins, y control de versiones con Git. Desarrollo, documentación y mantenimiento de endpoints en entornos de desarrollo y producción. Integración con bases de datos MongoDB y Redis. Participación activa en diseño, revisión de código y pruebas unitarias/de integración. Gestión de tareas mediante metodología Agile.</p>
+          <p data-es="Desarrollo y definición de APIs REST proveedoras de seguridad y servicios para Santander Consumer Finance mediante IBM API Connect, cubriendo el ciclo de vida completo del API: diseño, publicación, versionado y retirada. Diseño e implementación de flujos de integración y automatización con Node-RED. Gestión de CI/CD con Bitbucket y Jenkins, y control de versiones con Git. Desarrollo, documentación y mantenimiento de endpoints en entornos de desarrollo y producción. Integración con bases de datos MongoDB y Redis. Participación activa en diseño, revisión de código y pruebas unitarias/de integración. Gestión de tareas mediante metodología Agile." data-en="Development and definition of REST APIs providing security and services for Santander Consumer Finance through IBM API Connect, covering the complete API lifecycle: design, publication, versioning and retirement. Design and implementation of integration and automation flows with Node-RED. CI/CD management with Bitbucket and Jenkins, version control with Git. Development, documentation and maintenance of endpoints in development and production environments. Integration with MongoDB and Redis databases. Active participation in design, code review and unit/integration testing. Task management using Agile methodology." data-it="Sviluppo e definizione di API REST per servizi di sicurezza tramite IBM API Connect, coprendo l'intero ciclo di vita dell'API: progettazione, pubblicazione, versionamento e dismissione. Progettazione e implementazione di flussi di integrazione e automazione con Node-RED. Gestione CI/CD con Bitbucket e Jenkins, controllo versione con Git. Sviluppo, documentazione e manutenzione di endpoint in ambienti di sviluppo e produzione. Integrazione con database MongoDB e Redis. Partecipazione attiva a design, code review e test unitari/di integrazione. Gestione delle attività con metodologia Agile.">Desarrollo y definición de APIs REST proveedoras de seguridad y servicios para Santander Consumer Finance mediante IBM API Connect, cubriendo el ciclo de vida completo del API: diseño, publicación, versionado y retirada. Diseño e implementación de flujos de integración y automatización con Node-RED. Gestión de CI/CD con Bitbucket y Jenkins, y control de versiones con Git. Desarrollo, documentación y mantenimiento de endpoints en entornos de desarrollo y producción. Integración con bases de datos MongoDB y Redis. Participación activa en diseño, revisión de código y pruebas unitarias/de integración. Gestión de tareas mediante metodología Agile.</p>
           <span class="tag">IBM API Connect</span>
           <span class="tag">Ciclo de vida API</span>
           <span class="tag">JavaScript</span>
@@ -490,32 +523,32 @@
           <span class="tag">Git</span>
         </div>
         <div class="timeline-item">
-          <h3>Analista y moderador de contenido</h3>
+          <h3 data-es="Analista y moderador de contenido" data-en="Content Analyst and Moderator" data-it="Analista e Moderatore di Contenuti">Analista y moderador de contenido</h3>
           <div class="meta">
             <span>Accenture Portugal · Lisboa</span>
             <span>Jul 2018 — Dic 2018</span>
           </div>
-          <p>Filtrado, análisis y clasificación de contenido reportado por usuarios de Facebook e Instagram. Actualización constante sobre políticas y guías para aplicar decisiones sobre el contenido de redes sociales.</p>
+          <p data-es="Filtrado, análisis y clasificación de contenido reportado por usuarios de Facebook e Instagram. Actualización constante sobre políticas y guías para aplicar decisiones sobre el contenido de redes sociales." data-en="Filtering, analysis and classification of content reported by Facebook and Instagram users. Constant updating on policies and guidelines to apply decisions on social media content." data-it="Filtraggio, analisi e classificazione dei contenuti segnalati dagli utenti di Facebook e Instagram. Aggiornamento costante su policy e linee guida per applicare le decisioni sui contenuti dei social media.">Filtrado, análisis y clasificación de contenido reportado por usuarios de Facebook e Instagram. Actualización constante sobre políticas y guías para aplicar decisiones sobre el contenido de redes sociales.</p>
           <span class="tag">Análisis</span>
           <span class="tag">Redes sociales</span>
         </div>
         <div class="timeline-item">
-          <h3>Agente de atención al cliente</h3>
+          <h3 data-es="Agente de atención al cliente" data-en="Customer Service Agent" data-it="Agente di Assistenza Clienti">Agente de atención al cliente</h3>
           <div class="meta">
             <span>Teleperformance Portugal · Lisboa</span>
             <span>Jul 2016 — Jul 2018</span>
           </div>
-          <p>Atención al cliente para la comunidad de jugadores de Supercell. Gestión de consultas y errores reportados hasta su resolución mediante Helpshift (CRM para móviles). Punto de contacto y back-up para el equipo hispanohablante de 270 personas.</p>
+          <p data-es="Atención al cliente para la comunidad de jugadores de Supercell. Gestión de consultas y errores reportados hasta su resolución mediante Helpshift (CRM para móviles). Punto de contacto y back-up para el equipo hispanohablante de 270 personas." data-en="Customer service for the Supercell gaming community. Management of queries and errors reported by players until resolution through Helpshift (mobile CRM). Point of contact and backup for the Spanish-speaking team of 270 people." data-it="Assistenza clienti per la community di giocatori mobile di Supercell. Responsabile della gestione e risoluzione delle richieste e dei problemi segnalati dai giocatori. Supporto fornito in team tramite Helpshift (CRM per dispositivi mobili). Punto di riferimento e backup per il team ispanofono di 270 persone.">Atención al cliente para la comunidad de jugadores de Supercell. Gestión de consultas y errores reportados hasta su resolución mediante Helpshift (CRM para móviles). Punto de contacto y back-up para el equipo hispanohablante de 270 personas.</p>
           <span class="tag">CRM</span>
           <span class="tag">Soporte</span>
         </div>
         <div class="timeline-item">
-          <h3>Técnico informático (prácticas)</h3>
+          <h3 data-es="Técnico informático (prácticas)" data-en="IT Technician (internship)" data-it="Tecnico Informatico (tirocinio)">Técnico informático (prácticas)</h3>
           <div class="meta">
             <span>Mancomunidad de la Sierra de Cádiz · Villamartín, Cádiz</span>
             <span>Abr 2016 — Jun 2016</span>
           </div>
-          <p>Reparación de ordenadores. Instalación de sistemas operativos. Gestión de bases de datos. Asistencia remota.</p>
+          <p data-es="Reparación de ordenadores. Instalación de sistemas operativos. Gestión de bases de datos. Asistencia remota." data-en="Computer repair. Operating system installation. Database management. Remote assistance." data-it="Riparazione di computer. Installazione di sistemi operativi. Gestione di database. Assistenza da remoto.">Reparación de ordenadores. Instalación de sistemas operativos. Gestión de bases de datos. Asistencia remota.</p>
           <span class="tag">Soporte técnico</span>
           <span class="tag">Bases de datos</span>
         </div>
@@ -526,12 +559,12 @@
   <!-- Educación -->
   <section id="educacion">
     <div class="container">
-      <h2 class="section-title">Educación</h2>
+      <h2 class="section-title" data-es="Educación" data-en="Education" data-it="Formazione">Educación</h2>
       <div class="timeline">
         <div class="timeline-item">
-          <h3>Bootcamp Data Analytics & IA</h3>
+          <h3 data-es="Bootcamp Data Analytics & IA" data-en="Bootcamp Data Analytics & AI" data-it="Bootcamp Data Analytics & IA">Bootcamp Data Analytics & IA</h3>
           <div class="meta"><span>Upgrade Hub</span><span>May 2026 — Oct 2026</span></div>
-          <p>Formación intensiva en analítica de datos e IA aplicada: ingesta y modelado de datos con Microsoft Fabric y KQL, construcción de dashboards con Power BI y Plotly, fundamentos de Machine Learning, modelos de lenguaje (LLM), arquitecturas RAG y flujos de trabajo asistidos por IA (Vibe Coding) con OpenCode, Copilot y Ollama.</p>
+          <p data-es="Formación intensiva en analítica de datos e IA aplicada: ingesta y modelado de datos con Microsoft Fabric y KQL, construcción de dashboards con Power BI y Plotly, fundamentos de Machine Learning, modelos de lenguaje (LLM), arquitecturas RAG y flujos de trabajo asistidos por IA (Vibe Coding) con OpenCode, Copilot y Ollama." data-en="Intensive training in data analytics and applied AI: data ingestion and modeling with Microsoft Fabric and KQL, dashboard creation with Power BI and Plotly, Machine Learning fundamentals, language models (LLM), RAG architectures and AI-assisted workflows (Vibe Coding) with Ollama." data-it="Formazione intensiva in data analytics e IA applicata: ingestione e modellazione dei dati con Microsoft Fabric e KQL, creazione di dashboard con Power BI e Plotly, fondamenti di Machine Learning, modelli linguistici (LLM), architetture RAG e flussi di lavoro assistiti dall'IA (Vibe Coding) con Ollama.">Formación intensiva en analítica de datos e IA aplicada: ingesta y modelado de datos con Microsoft Fabric y KQL, construcción de dashboards con Power BI y Plotly, fundamentos de Machine Learning, modelos de lenguaje (LLM), arquitecturas RAG y flujos de trabajo asistidos por IA (Vibe Coding) con OpenCode, Copilot y Ollama.</p>
           <span class="tag">Python</span>
           <span class="tag">pandas</span>
           <span class="tag">SQL</span>
@@ -544,9 +577,9 @@
           <span class="tag">RAG</span>
         </div>
         <div class="timeline-item">
-          <h3>Bootcamp Full-Stack Web Developer</h3>
+          <h3 data-es="Bootcamp Full-Stack Web Developer" data-en="Bootcamp Full-Stack Web Developer" data-it="Bootcamp Full-Stack Web Developer">Bootcamp Full-Stack Web Developer</h3>
           <div class="meta"><span>Upgrade Hub</span><span>Jun 2021 — Sep 2021</span></div>
-          <p>Bootcamp intensivo a jornada completa en desarrollo de aplicaciones web: maquetación con HTML5 y CSS3, lógica de programación con JavaScript (ES6), frontend con Angular y React, backend con Node.js y PHP/Symfony, persistencia con MongoDB y MySQL, contenerización con Docker y metodología Agile.</p>
+          <p data-es="Bootcamp intensivo a jornada completa en desarrollo de aplicaciones web: maquetación con HTML5 y CSS3, lógica de programación con JavaScript (ES6), frontend con Angular y React, backend con Node.js y PHP/Symfony, persistencia con MongoDB y MySQL, contenerización con Docker y metodología Agile." data-en="Intensive full-time bootcamp in web application development: markup with HTML5 and CSS3, programming logic with JavaScript (ES6), frontend with Angular and React, backend with Node.js and PHP/Symfony, persistence with MongoDB and MySQL, containerization with Docker and Agile methodology." data-it="Bootcamp intensivo a tempo pieno nello sviluppo di applicazioni web: markup con HTML5 e CSS3, logica di programmazione con JavaScript (ES6), frontend con Angular e React, backend con Node.js e PHP/Symfony, persistenza con MongoDB e MySQL, containerizzazione con Docker e metodologia Agile.">Bootcamp intensivo a jornada completa en desarrollo de aplicaciones web: maquetación con HTML5 y CSS3, lógica de programación con JavaScript (ES6), frontend con Angular y React, backend con Node.js y PHP/Symfony, persistencia con MongoDB y MySQL, contenerización con Docker y metodología Agile.</p>
           <span class="tag">HTML5</span>
           <span class="tag">CSS3</span>
           <span class="tag">JavaScript (ES6)</span>
@@ -558,9 +591,9 @@
           <span class="tag">Docker</span>
         </div>
         <div class="timeline-item">
-          <h3>Técnico Superior en Administración de Sistemas Informáticos en Red</h3>
+          <h3 data-es="Técnico Superior en Administración de Sistemas Informáticos en Red" data-en="Higher Technician in Computer Systems and Network Administration" data-it="Tecnico Superiore in Amministrazione di Sistemi Informatici in Rete">Técnico Superior en Administración de Sistemas Informáticos en Red</h3>
           <div class="meta"><span>I.E.S. Guadalpeña</span><span>Sep 2012 — Jun 2016</span></div>
-          <p>Formación reglada en administración y explotación de sistemas informáticos: despliegue y gestión de redes, administración de sistemas operativos Windows y Linux, gestión de bases de datos, implementación de mecanismos de seguridad perimetral y soporte de infraestructuras hardware.</p>
+          <p data-es="Formación reglada en administración y explotación de sistemas informáticos: despliegue y gestión de redes, administración de sistemas operativos Windows y Linux, gestión de bases de datos, implementación de mecanismos de seguridad perimetral y soporte de infraestructuras hardware." data-en="Formal education in administration and management of computer systems: network deployment and management, Windows and Linux operating system administration, database management, implementation of perimeter security measures and hardware infrastructure support." data-it="Formazione ufficiale in amministrazione e gestione di sistemi informatici: implementazione e gestione di reti, amministrazione di sistemi operativi Windows e Linux, gestione di database, implementazione di misure di sicurezza perimetrale e supporto hardware.">Formación reglada en administración y explotación de sistemas informáticos: despliegue y gestión de redes, administración de sistemas operativos Windows y Linux, gestión de bases de datos, implementación de mecanismos de seguridad perimetral y soporte de infraestructuras hardware.</p>
           <span class="tag">Redes</span>
           <span class="tag">Linux</span>
           <span class="tag">Sistemas Operativos</span>
@@ -573,15 +606,20 @@
     </div>
   </section>
 
+  <p class="print-only-projects-note">
+    Visita mis proyectos en
+    <a href="https://dende8.github.io/">https://dende8.github.io/</a>
+  </p>
+
   <!-- Proyectos -->
   <section id="proyectos">
     <div class="container">
-      <h2 class="section-title">Proyectos</h2>
+      <h2 class="section-title" data-es="Proyectos" data-en="Projects" data-it="Progetti">Proyectos</h2>
       <div class="projects-grid">
         <a href="https://creditcardchurners.streamlit.app/" target="_blank" rel="noopener" class="project-card-link">
           <div class="project-card" tabindex="0">
             <h3>Credit Card Churn Analysis</h3>
-            <p>Análisis exploratorio de datos (EDA) interactivo con Streamlit para identificar el perfil de cliente bancario con mayor probabilidad de cancelar su tarjeta de crédito. Dashboard con filtros dinámicos, visualizaciones con Plotly y segmentación por nivel de actividad.</p>
+            <p data-es="Análisis exploratorio de datos (EDA) interactivo con Streamlit para identificar el perfil de cliente bancario con mayor probabilidad de cancelar su tarjeta de crédito. Dashboard con filtros dinámicos, visualizaciones con Plotly y segmentación por nivel de actividad." data-en="Interactive exploratory data analysis (EDA) with Streamlit to identify the profile of bank customers most likely to cancel their credit card. Dashboard with dynamic filters, Plotly visualizations and activity level segmentation." data-it="Analisi esplorativa dei dati (EDA) interattiva con Streamlit per identificare il profilo del cliente bancario con maggiore probabilità di cancellare la propria carta di credito. Dashboard con filtri dinamici, visualizzazioni con Plotly e segmentazione per livello di attività.">Análisis exploratorio de datos (EDA) interactivo con Streamlit para identificar el perfil de cliente bancario con mayor probabilidad de cancelar su tarjeta de crédito. Dashboard con filtros dinámicos, visualizaciones con Plotly y segmentación por nivel de actividad.</p>
             <div class="tags"><span>Python</span><span>Streamlit</span><span>pandas</span><span>EDA</span></div>
             <span class="visitar">Visitar</span>
           </div>
@@ -589,7 +627,7 @@
         <a href="https://rickymortex.streamlit.app/" target="_blank" rel="noopener" class="project-card-link">
           <div class="project-card" tabindex="0">
             <h3>RickyMortex</h3>
-            <p>App web para explorar personajes de Rick y Morty vía API REST pública. Cuadrícula de tarjetas, fichas detalladas, filtros y estadísticas con Plotly.</p>
+            <p data-es="App web para explorar personajes de Rick y Morty vía API REST pública. Cuadrícula de tarjetas, fichas detalladas, filtros y estadísticas con Plotly." data-en="Web application to explore Rick and Morty characters through the public REST API. Card grid, detailed profiles, filters and statistics with Plotly." data-it="Applicazione web per esplorare i personaggi di Rick e Morty tramite l'API REST pubblica. Griglia di card, profili dettagliati, filtri e statistiche con Plotly.">App web para explorar personajes de Rick y Morty vía API REST pública. Cuadrícula de tarjetas, fichas detalladas, filtros y estadísticas con Plotly.</p>
             <div class="tags"><span>Streamlit</span><span>Python</span><span>APIs</span><span>Plotly</span></div>
             <span class="visitar">Visitar</span>
           </div>
@@ -597,7 +635,7 @@
         <a href="https://app-pokedex-s8.streamlit.app/" target="_blank" rel="noopener" class="project-card-link">
           <div class="project-card" tabindex="0">
             <h3>Streamlit Pokédex</h3>
-            <p>Pokédex interactiva que lee datos desde TiDB Cloud en lugar de ficheros locales. Preparación de datos con pandas y visualización con Plotly.</p>
+            <p data-es="Pokédex interactiva que lee datos desde TiDB Cloud en lugar de ficheros locales. Preparación de datos con pandas y visualización con Plotly." data-en="Interactive Pokédex that reads data from TiDB Cloud instead of local files. Data preparation with pandas and visualization with Plotly." data-it="Pokédex interattivo che legge i dati da TiDB Cloud invece che da file locali. Preparazione dei dati con pandas e visualizzazione con Plotly.">Pokédex interactiva que lee datos desde TiDB Cloud en lugar de ficheros locales. Preparación de datos con pandas y visualización con Plotly.</p>
             <div class="tags"><span>Streamlit</span><span>Python</span><span>SQL</span><span>pandas</span></div>
             <span class="visitar">Visitar</span>
           </div>
@@ -605,7 +643,7 @@
         <a href="https://github.com/Dende8/earthquakes" target="_blank" rel="noopener" class="project-card-link">
           <div class="project-card" tabindex="0">
             <h3>Earthquakes</h3>
-            <p>Notebook de Python que consume la API de USGS para analizar y visualizar datos históricos de terremotos en todo el mundo.</p>
+            <p data-es="Notebook de Python que consume la API de USGS para analizar y visualizar datos históricos de terremotos en todo el mundo." data-en="Python notebook that consumes the USGS API to analyze and visualize historical earthquake data worldwide." data-it="Notebook Python che utilizza l'API USGS per analizzare e visualizzare dati storici sui terremoti a livello mondiale.">Notebook de Python que consume la API de USGS para analizar y visualizar datos históricos de terremotos en todo el mundo.</p>
             <div class="tags"><span>Python</span><span>APIs</span><span>pandas</span><span>Jupyter</span></div>
             <span class="visitar">Visitar</span>
           </div>
@@ -617,7 +655,7 @@
   <!-- Contacto -->
   <section id="contacto">
     <div class="container">
-      <h2 class="section-title">Contacto</h2>
+      <h2 class="section-title" data-es="Contacto" data-en="Contact" data-it="Contatti">Contacto</h2>
       <div class="contact-grid">
         <a href="mailto:dende8bruselas@gmail.com" class="contact-card" aria-label="Enviar correo">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
@@ -641,54 +679,47 @@
 </footer>
 
 <script>
-  (function() {
-    var animated = false;
-
-    function animateSkills() {
-      if (animated) return;
-      var bars = document.querySelectorAll('.skill-bar .fill');
-      if (!bars.length) return;
-      var rect = bars[0].closest('.skills-grid').getBoundingClientRect();
-      if (rect.top < window.innerHeight - 60) {
-        bars.forEach(function(bar) {
-          var item = bar.closest('.skill-item');
-          if (item.classList.contains('core')) {
-            bar.style.width = '100%';
-          } else if (item.classList.contains('growth')) {
-            bar.style.width = '58%';
-          }
-        });
-        animated = true;
-        window.removeEventListener('scroll', onScroll);
-        window.removeEventListener('resize', onScroll);
+(function() {
+  function applyLang(lang) {
+    document.querySelectorAll('[data-' + lang + ']').forEach(function(el) {
+      var attr = el.getAttribute('data-' + lang);
+      if (el.tagName === 'LI') {
+        el.innerHTML = attr;
+      } else {
+        el.textContent = attr;
       }
-    }
-
-    function onScroll() { animateSkills(); }
-
-    document.querySelectorAll('.skill-bar .fill').forEach(function(el) {
-      el.style.width = '0';
     });
-
-    window.addEventListener('scroll', onScroll);
-    window.addEventListener('resize', onScroll);
-    animateSkills();
-
-    document.querySelectorAll('.project-card').forEach(function(card) {
-      card.addEventListener('mouseenter', function() {
-        card.classList.add('is-hovering');
-      });
-      card.addEventListener('mouseleave', function() {
-        card.classList.remove('is-hovering');
-      });
-      card.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.click();
-        }
-      });
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
     });
-  })();
+    try { localStorage.setItem('cv-lang', lang); } catch(e) {}
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      applyLang(this.getAttribute('data-lang'));
+    });
+  });
+
+  var saved = null;
+  try { saved = localStorage.getItem('cv-lang'); } catch(e) {}
+  if (saved && ['es','en','it'].indexOf(saved) !== -1) {
+    applyLang(saved);
+  }
+
+  // Shine effect on project cards
+  document.querySelectorAll('.project-card').forEach(function(card) {
+    card.addEventListener('mouseenter', function() {
+      this.classList.remove('is-hovering');
+      void this.offsetWidth;
+      this.classList.add('is-hovering');
+    });
+    card.addEventListener('mouseleave', function() {
+      this.classList.remove('is-hovering');
+    });
+  });
+})();
 </script>
 
 </body>
